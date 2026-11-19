@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f5fb">
+  <meta name="description" content="MITS student attendance, faculty insights, and personal planning.">
+  <title>MITS Attendance — Student dashboard</title>
+  <link rel="icon" type="image/png" href="/mits-logo.png">
+  <link rel="apple-touch-icon" href="/mits-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loginView" class="login-view">
+    <aside class="login-art">
+      <a class="brand brand-light official-brand" href="#" aria-label="MITS Attendance home"><img class="mits-wordmark" src="/mits-logo.png" alt="MITS University emblem"><span class="login-brand-copy"><strong>MITS Attendance</strong><small>Student portal</small></span></a>
+      <div class="art-copy"><span class="eyebrow">YOUR CAMPUS, IN FOCUS</span><h1>Make every<br>class count.</h1><p>A clear view of your attendance, so you can spend less time worrying and more time learning.</p></div>
+      <div class="art-card"><div class="art-card-top"><span>YOUR MITS DASHBOARD</span><span class="live-dot"></span></div><div class="art-number">Clear. Focused. Yours<span>.</span></div><div class="art-lines"><i></i><i></i><i></i></div><div class="art-card-bottom"><span>ATTENDANCE · FACULTY · INSIGHTS</span><span>01 — 03</span></div></div>
+      <div class="art-footer"><span>Made for the MITS community</span><span>© <span id="year"></span> MITS Attendance</span></div>
+    </aside>
+    <main class="login-main"><div class="login-top"><span class="secure-label"><span class="lock-icon">⌑</span> PRIVATE STUDENT ACCESS</span></div>
+      <section class="login-box">
+        <div class="mobile-brand"><img src="/mits-logo.png" alt="MITS emblem"><span>MITS <small>ATTENDANCE</small></span></div>
+        <div class="login-heading"><span class="eyebrow">WELCOME BACK</span><h2>Your attendance,<br>all in one place.</h2><p>Sign in with your MITS student credentials to continue.</p></div>
+        <form id="loginForm" novalidate>
+          <label for="rollNumber">Register number</label><div class="input-wrap"><span class="input-icon">⌗</span><input id="rollNumber" name="rollNumber" type="text" placeholder="Enter your register number" autocomplete="username" autocapitalize="characters" required></div>
+          <label for="password">Password</label><div class="input-wrap"><span class="input-icon">◇</span><input id="password" name="password" type="password" placeholder="Enter your MITS password" autocomplete="current-password" required><button type="button" class="reveal-btn" id="togglePassword" aria-label="Show password">Show</button></div>
+          <div class="form-row"><span class="secure-note">Your credentials are not saved on this device.</span></div>
+          <button class="button button-primary sign-in" id="signInButton" type="submit"><span>Sign in to dashboard</span><span class="arrow">↗</span></button><div id="loginError" class="form-error" role="alert" hidden></div>
+        </form>
+        <div class="login-help"><span class="help-icon">i</span><p>Your password is sent to the attendance service only for sign-in. It is never saved on this device.</p></div>
+      </section>
+      <div class="login-bottom"><span>Need account support? Contact MITS. <span class="developer-credit">Developed by Niranjan</span></span></div>
+    </main>
+    <button id="loginHelpToggle" class="login-ai-launcher" type="button" aria-label="Open MITS login guide" aria-expanded="false"><span class="login-ai-launcher-icon" aria-hidden="true">✳</span><i class="ai-launcher-pulse"></i></button>
+    <div id="loginAiBackdrop" class="login-ai-backdrop" hidden></div>
+    <section id="loginAiPanel" class="login-ai-panel" role="dialog" aria-modal="true" aria-labelledby="loginAiTitle" hidden>
+      <div class="login-ai-head"><span class="ai-avatar">✳</span><span><strong id="loginAiTitle">MITS Login Guide</strong><small>Here to help you sign in</small></span><button id="loginHelpClose" class="icon-button" type="button" aria-label="Close login guide">×</button></div>
+      <div id="loginAiMessages" class="login-ai-messages" aria-live="polite"><div class="chat-bubble assistant-bubble">Enter your register number and MITS password in the sign-in fields, then choose <strong>Sign in to dashboard</strong>. Never type your password into this chat.</div></div>
+      <form id="loginAiForm" class="login-ai-form"><input id="loginAiInput" type="text" maxlength="1200" placeholder="Ask how to sign in…" autocomplete="off"><button type="submit" aria-label="Send login help">↑</button></form>
+      <p class="login-ai-note">This guide cannot view or reset your MITS password.</p>
+    </section>
+  </div>
+
+  <div id="appView" class="app-view" hidden>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand official-brand sidebar-brand" href="#overview" aria-label="MITS Attendance overview"><img class="mits-wordmark" src="/mits-logo.png" alt="MITS University emblem"><span class="sidebar-brand-copy"><strong>MITS Attendance</strong><small>Student portal</small></span></a>
+      <div class="campus-label">STUDENT SPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview" data-page="overview"><span class="nav-icon">◫</span>Overview</a>
+        <a class="nav-link" href="#subjects" data-page="subjects"><span class="nav-icon">▦</span>My subjects<span id="subjectNavCount" class="nav-count">—</span></a>
+        <a class="nav-link" href="#faculty" data-page="faculty"><span class="nav-icon">♙</span>Faculty directory<span id="facultyNavCount" class="nav-count">—</span></a>
+        <a class="nav-link" href="#insights" data-page="insights"><span class="nav-icon">⌁</span>Attendance planner</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="sidebar-info"><span class="sidebar-info-icon">✳</span><div><strong>Live student data</strong><p>Attendance and faculty details from your MITS account.</p></div></div><div class="sidebar-foot"><span class="foot-avatar" id="sidebarInitial">S</span><span class="sidebar-student-copy"><strong id="sidebarStudentName">Student</strong><small id="sidebarStudentRoll">Personal dashboard</small></span><button id="sidebarLogout" class="icon-button logout-small" aria-label="Log out" title="Log out">↪</button></div></div>
+    </aside>
+    <main class="main-panel" id="mainPanel">
+      <header class="topbar"><button id="menuToggle" class="icon-button menu-toggle" aria-label="Open navigation">☰</button><div class="breadcrumb">Student portal <span>/</span> <strong id="pageTitle">Overview</strong></div><div class="top-actions"><button id="printReportButton" class="top-action-button" title="Print or save report"><span>▤</span> Print</button><button id="exportCsvButton" class="top-action-button top-action-primary" title="Download subject data as CSV"><span>↓</span> Export CSV</button><span class="header-roll" aria-label="Your register number"><span id="headerRoll">Student</span></span></div></header>
+      <div class="page-content">
+        <section class="page-section active" id="page-overview" data-page-section="overview">
+          <div class="welcome-row"><div><div class="eyebrow" id="todayLabel">YOUR ATTENDANCE OVERVIEW</div><h1 id="welcomeTitle">Good to see you<span class="brand-dot">.</span></h1><p class="welcome-sub">A focused view of your MITS attendance this semester.</p></div><div class="semester-pill"><span class="semester-dot"></span><span>Current semester</span></div></div>
+          <section class="summary-grid" aria-label="Attendance summary">
+            <article class="summary-card overall-card"><div class="summary-top"><span>OVERALL ATTENDANCE</span><span class="metric-icon violet-icon">◌</span></div><div class="summary-value" id="overallValue">—<small>%</small></div><div class="summary-bottom"><span id="overallCaption">Combined across your subjects</span></div><div class="overall-track"><span id="overallTrack"></span></div></article>
+            <article class="summary-card"><div class="summary-top"><span>CLASSES ATTENDED</span><span class="metric-icon blue-icon">✓</span></div><div class="summary-value" id="attendedValue">—</div><div class="summary-bottom"><span>out of <strong id="totalValue">—</strong> total classes</span></div><div class="mini-bar"><span id="attendedTrack"></span></div></article>
+            <article class="summary-card"><div class="summary-top"><span>SUBJECTS TO WATCH</span><span class="metric-icon amber-icon">⌁</span></div><div class="summary-value" id="watchValue">—</div><div class="summary-bottom"><span id="watchCaption">Below your attendance target</span></div><div class="watch-dots" id="watchDots"><i></i><i></i><i></i><i></i><i></i></div></article>
+            <article class="summary-card"><div class="summary-top"><span>FACULTY</span><span class="metric-icon teal-icon">♙</span></div><div class="summary-value" id="facultyValue">—</div><div class="summary-bottom"><span>Teaching your subjects</span></div><a class="card-link" href="#faculty" data-page-link="faculty">Explore faculty <span>↗</span></a></article>
+            <article class="summary-card status-card"><div class="summary-top"><span>YOUR STATUS</span><span class="metric-icon green-icon">✦</span></div><div class="status-value" id="statusValue"><span class="status-dot"></span>Waiting for data</div><div class="summary-bottom"><span id="statusCaption">Based on your <strong>75%</strong> target</span></div><a class="card-link" href="#insights" data-page-link="insights">Open planner <span>↗</span></a></article>
+          </section>
+          <section class="overview-grid">
+            <article class="panel overview-attendance"><div class="panel-heading"><div><div class="eyebrow">SEMESTER SNAPSHOT</div><h2>Your attendance at a glance</h2></div><span class="live-pill"><i></i> LIVE DATA</span></div><div class="overview-snapshot"><div class="donut" id="attendanceDonut"><div class="donut-inner"><strong id="donutValue">—</strong><span>OVERALL</span></div></div><div class="overview-metrics"><div><span>Attended classes</span><strong id="legendAttended">—</strong></div><div><span>Missed classes</span><strong id="legendMissed">—</strong></div><div><span>Your target</span><strong id="legendTarget">75%</strong></div></div></div><div class="risk-distribution"><div class="distribution-heading"><strong>Subject distribution</strong><span id="distributionTotal">0 subjects</span></div><div class="distribution-track"><i id="distributionSafe"></i><i id="distributionBorder"></i><i id="distributionCritical"></i></div><div class="distribution-legend"><span><i class="safe-key"></i>On track <b id="safeCount">0</b></span><span><i class="border-key"></i>Borderline <b id="borderCount">0</b></span><span><i class="critical-key"></i>At risk <b id="criticalCount">0</b></span></div></div></article>
+            <article class="panel attention-panel"><div class="panel-heading"><div><div class="eyebrow">PRIORITY CHECK</div><h2>Subjects to look at</h2></div><button class="text-button" data-page-link="subjects">All subjects →</button></div><div id="attentionList" class="attention-list"><div class="empty-state"><strong>Sign in to see your subject priorities</strong></div></div></article>
+          </section>
+        </section>
+
+        <section class="page-section" id="page-subjects" data-page-section="subjects" hidden>
+          <div class="section-intro"><div><div class="eyebrow">YOUR SEMESTER</div><h1>Subject performance</h1><p>Compare attendance, find a subject or faculty member, and focus on what needs attention.</p></div><span id="subjectPageCount" class="faculty-total">0 subjects</span></div>
+          <article class="panel subjects-panel"><div class="subject-toolbar"><div class="search-box"><span>⌕</span><input id="subjectSearch" type="search" placeholder="Search subject or faculty…" aria-label="Search subjects or faculty"></div><select id="riskFilter" class="toolbar-select" aria-label="Filter by attendance status"><option value="all">All statuses</option><option value="critical">At risk</option><option value="border">Borderline</option><option value="safe">On track</option></select><select id="subjectSort" class="toolbar-select" aria-label="Sort subjects"><option value="risk">Priority</option><option value="percent-asc">Lowest attendance</option><option value="percent-desc">Highest attendance</option><option value="name">Subject A–Z</option><option value="faculty">Faculty A–Z</option></select><label class="filter-switch"><input type="checkbox" id="excludeTech"><span class="switch-ui"></span><span>Exclude technical training</span></label><div class="view-toggle"><button class="view-mode active" id="cardsView" aria-label="Card view" title="Card view">▦</button><button class="view-mode" id="tableView" aria-label="Table view" title="Table view">☷</button></div></div><div id="subjectsContainer" class="subjects-container"><div class="empty-state"><span class="empty-icon">◌</span><strong>Sign in to see your subjects</strong><p>Your attendance details will appear here.</p></div></div><div class="panel-foot" id="subjectsFoot" hidden></div></article>
+        </section>
+
+        <section class="page-section" id="page-faculty" data-page-section="faculty" hidden>
+          <div class="section-intro"><div><div class="eyebrow">PEOPLE BEHIND YOUR CLASSES</div><h1>Faculty directory</h1><p>Review the subjects and attendance data associated with each faculty member.</p></div><span class="faculty-total" id="facultyTotal">0 faculty</span></div>
+          <section id="facultyContainer" class="faculty-grid page-faculty-grid"><div class="empty-state"><span class="empty-icon">♙</span><strong>Faculty details appear here after sign in</strong></div></section>
+        </section>
+
+        <section class="page-section" id="page-insights" data-page-section="insights" hidden>
+          <div class="section-intro"><div><div class="eyebrow">PLAN WITH YOUR CURRENT DATA</div><h1>Attendance planner</h1><p>Set a target and model future absences against your current class totals.</p></div></div>
+          <section class="insights-grid"><article class="panel insight-health"><div class="panel-heading"><div><div class="eyebrow">AT A GLANCE</div><h2>Attendance health</h2></div><span class="planner-icon">◉</span></div><div class="insight-health-content"><div class="donut" id="insightDonut"><div class="donut-inner"><strong id="insightDonutValue">—</strong><span>OVERALL</span></div></div><div class="health-legend"><div><i class="legend-dot present-dot"></i><span>Attended</span><strong id="insightAttended">—</strong></div><div><i class="legend-dot missed-dot"></i><span>Missed</span><strong id="insightMissed">—</strong></div><div><i class="legend-dot target-dot"></i><span>Target</span><strong id="insightTarget">75%</strong></div></div></div><div class="health-note" id="healthNote"><span class="note-icon">✦</span><span>Sign in to get your personalized attendance summary.</span></div></article>
+            <article class="panel planner-panel" id="insights"><div class="panel-heading"><div><div class="eyebrow">WHAT IF?</div><h2>Plan your next classes</h2></div><span class="planner-icon">⌁</span></div><p class="planner-copy">Choose your attendance goal and planned missed classes.</p><div class="planner-fields"><label for="targetInput">My target</label><div class="input-suffix"><input id="targetInput" type="number" min="1" max="100" value="75"><span>%</span></div><label for="leaveInput">Classes I plan to miss</label><div class="input-suffix"><input id="leaveInput" type="number" min="0" value="0"><span>classes</span></div></div><div class="plan-result" id="planResult"><span class="plan-result-icon">✦</span><div><strong>Make a plan that works for you</strong><p>Your safe absence allowance will show here.</p></div></div><div id="plannerBreakdown" class="planner-breakdown"></div></article></section>
+        </section>
+
+        <footer class="app-footer"><span>Made for the MITS community <span class="footer-heart">♥</span><span class="developer-credit"> · Developed by Niranjan</span></span><button id="logoutButton" class="footer-logout">Log out <span>↗</span></button><span>Attendance data is provided by your campus system.</span></footer>
+      </div>
+    </main>
+    <button id="assistantLauncher" class="ai-launcher" aria-label="Open MITS attendance assistant" aria-expanded="false"><span class="ai-launcher-mark" aria-hidden="true">✳</span><i class="ai-launcher-pulse"></i></button>
+    <div id="assistantBackdrop" class="assistant-backdrop" hidden></div>
+    <aside id="assistantDrawer" class="ai-drawer" role="dialog" aria-modal="true" aria-labelledby="assistantTitle" hidden>
+      <div class="drawer-top"><div class="assistant-avatar">✳</div><div><strong id="assistantTitle">MITS Attendance AI</strong><small>Your current attendance, explained</small></div><span class="assistant-online"><i></i> READY</span><button id="assistantClose" class="icon-button drawer-close" aria-label="Close assistant">×</button></div>
+      <div class="drawer-context"><div><span>Subjects</span><strong id="contextSubjectCount">—</strong></div><div><span>Faculty</span><strong id="contextFacultyCount">—</strong></div><div><span>Overall</span><strong id="contextOverall">—</strong></div></div>
+      <div id="assistantMessages" class="assistant-messages"><div class="chat-bubble assistant-bubble">Hi! I can help explain your current attendance. Ask which subject needs attention, compare faculty, or get a clear summary.</div></div>
+      <div class="assistant-suggestions"><button type="button" data-ai-prompt="Which subjects need the most attention?">Subjects to focus on</button><button type="button" data-ai-prompt="Summarize my attendance and compare it with my 75% target.">My attendance summary</button><button type="button" data-ai-prompt="Which faculty member has the lowest weighted attendance across their subjects?">Faculty comparison</button></div>
+      <form id="assistantForm" class="assistant-form"><input id="assistantInput" type="text" maxlength="1200" placeholder="Ask about your attendance…" autocomplete="off"><button type="submit" aria-label="Send message">↑</button></form>
+      <div class="assistant-privacy">Your password is never shared with Groq. Attendance data and your question are sent for this answer.</div>
+    </aside>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
+
